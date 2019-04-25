@@ -111,10 +111,18 @@ app.config(function($routeProvider) {
             }]
         }
     })
-
-
-
-
+    .when('/manageAccounts', {
+        templateUrl : './templates/manageAccounts.html',
+        controller : 'manageAccountController',
+        resolve : {
+            lazy : [ '$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load([ {
+                    name : 'enmarq',
+                    files : [ './controllers/manageAccountController.js' ]
+                }]);
+            }]
+        }
+    })
     .otherwise ({
         redirectTo : '/'
     });
