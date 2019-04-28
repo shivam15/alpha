@@ -20,7 +20,7 @@ angular.module('blockchain',[ 'ngCookies']).controller("loginController", functi
 		//console.log($scope.userName);
 		if ($scope.userName) {
 			$scope.showloading();
-			var promise = $http.get('http://localhost:8000/get_user?email=' + $scope.userName + '&pwd=' + $scope.password);
+			var promise = $http.get('http://localhost:8000/get_admin?email=' + $scope.userName + '&pwd=' + $scope.password);
 			promise.then(
 				function(payload) {
 					$scope.hideloading();

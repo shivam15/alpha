@@ -34,9 +34,10 @@ def deploy_contract(contract_interface):
     
 
 
-def deploy_n_transact(file_path, mappings=[]):
+def deploy_n_transact(file_path, mappings):
     # compile all files
-    contracts = compile_files(file_path, import_remappings=mappings)
+    print(mappings)
+    contracts = compile_files(mappings)
     link_add = {}
     contract_interface, links = separate_main_n_link(file_path, contracts)
     # first deploy all link libraries

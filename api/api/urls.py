@@ -5,11 +5,12 @@ from .views import CreateView_vendor, CreateView_admin
 from .views import CreateView_user,CreateView_userDetails
 from .views import DetailsView_vendor,ListView_user, ListView_vendor
 from .views import ListView_admin,DetailsView_userDetails, DetailsView_user
-from .views import blockTesting
+from .views import blockTesting,getUserBlock
 
 urlpatterns = {
 	url(r'^user/$', CreateView_user.as_view(), name="create user"),
 	url(r'^blockTesting/$',blockTesting,name="send Sms"),
+	url(r'^getUserBlock/$',getUserBlock,name="send Sms"),
 	url(r'^userDetails/$', CreateView_userDetails.as_view(), name="create userDetails"),
 	url(r'^vendor/$', CreateView_vendor.as_view(), name="create vendor"),
 	url(r'^admin/$', CreateView_admin.as_view(), name="create vendor"),

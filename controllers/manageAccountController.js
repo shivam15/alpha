@@ -1,29 +1,32 @@
 angular.module('blockchain').controller("manageAccountController", function($scope, $http,$cookies,$rootScope) {
 	
+	$scope.u;
 	$scope.load = function(){
 		$(document).ready(function (){
 			$('.nav li').removeClass("active");
 			$('.aboutLink').parent().addClass("active");
 			
 		});
-		$scope.showSubmit = true;
-		$scope.dis = {};
-		$scope.list = $http.get('http://localhost:8000/get_product_vendor?vendorId=' + $cookies.userId);	
-		$scope.list.then(function(response){
-			$scope.products = response.data;
-		});
-		$scope.list1 = $http.get('http://localhost:8000/getVendorDiscount?vendor_id=' + $cookies.userId);	
-		$scope.list1.then(function(response){
-			$scope.discounts = response.data;
-		});
+		// $scope.showSubmit = true;
+		// $scope.dis = {};
+		// $scope.list = $http.get('http://localhost:8000/get_user');	
+		// $scope.list.then(function(response){
+		// 	$scope.products = response.data;
+		// });
+		// $scope.list1 = $http.get('http://localhost:8000/getVendorDiscount?vendor_id=' + $cookies.userId);	
+		// $scope.list1.then(function(response){
+		// 	$scope.discounts = response.data;
+		// });
 	};
 	$scope.load();
-	$scope.addCattle = function() 
+	$scope.addUser = function() 
 	{
-		$scope.showloading();
+		console.log($scope.u);
+		$scope.u.password = "1234";
+		$scope.u.confirm = "1234";
+		$scope.u.username = "Shivam";
 		$scope.showSubmit = false;
-		$scope.dis.vendor_id = $cookies.userId;
-		$scope.list = $http.post('http://localhost:8000/discount/',$scope.dis);	
+		$scope.list = $http.post('http://localhost:8000/blockTesting/',$scope.u);	
 		$scope.list.then(function(response){
 			$scope.response = response.data;
 			$scope.hideloading();

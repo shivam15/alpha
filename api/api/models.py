@@ -3,11 +3,16 @@ from django.db import models
 #User table model
 class User(models.Model):
 	"""This class represents the user model."""
+	name = models.CharField(max_length=50)
 	username = models.CharField(max_length=50)
 	email = models.EmailField(max_length=70, unique=True)
 	mobile = models.CharField(max_length=50, blank=False)
 	password = models.CharField(max_length=50)
 	confirm = models.CharField(max_length=50)
+	type = models.PositiveIntegerField(default=1)
+	address = models.CharField(max_length=100)
+	city = models.CharField(max_length=50)
+	state = models.CharField(max_length=50)
 
 	def __unicode__(self):
            return self.username
@@ -73,15 +78,10 @@ class vendor(models.Model):
 
 class Admin(models.Model):
 	"""This class represents the vendor model."""
-	first_name = models.CharField(max_length=50)
-	last_name = models.CharField(max_length=50)
+	username = models.CharField(max_length=50)
+	email = models.EmailField(max_length=70, unique=True)
+	mobile = models.CharField(max_length=50, blank=False)
 	password = models.CharField(max_length=50)
-	address = models.CharField(max_length=100)
-	email = models.EmailField(max_length=70,blank=True)
-	pincode = models.PositiveIntegerField()
-	mobile_number = models.CharField(max_length=100)
-	date_created = models.DateTimeField(auto_now_add=True)
-	date_modified = models.DateTimeField(auto_now=True)
-	active = models.PositiveIntegerField(default=1)
+	confirm = models.CharField(max_length=50)
 	def __unicode__(self):
 		return self.first_name

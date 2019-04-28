@@ -1,41 +1,146 @@
 {
-    "abi": [
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "name",
-                    "type": "string"
-                },
-                {
-                    "name": "gender",
-                    "type": "string"
-                }
-            ],
-            "name": "setUser",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [],
-            "name": "getUser",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "string"
-                },
-                {
-                    "name": "",
-                    "type": "string"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }
-    ],
-    "contract_address": "0x135ba49cabA4d95A5cDcf28bbd2AE139f4716a08"
+    "abi":
+	[
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "um",
+		"outputs": [
+			{
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"name": "name",
+				"type": "bytes32"
+			},
+			{
+				"name": "username",
+				"type": "bytes32"
+			},
+			{
+				"name": "email",
+				"type": "bytes32"
+			},
+			{
+				"name": "mobile",
+				"type": "bytes32"
+			},
+			{
+				"name": "password",
+				"type": "bytes32"
+			},
+			{
+				"name": "confirm",
+				"type": "bytes32"
+			},
+			{
+				"name": "typ",
+				"type": "uint256"
+			},
+			{
+				"name": "adr",
+				"type": "bytes32"
+			},
+			{
+				"name": "city",
+				"type": "bytes32"
+			},
+			{
+				"name": "state",
+				"type": "bytes32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"name": "_name",
+				"type": "bytes32"
+			},
+			{
+				"name": "_username",
+				"type": "bytes32"
+			},
+			{
+				"name": "_email",
+				"type": "bytes32"
+			},
+			{
+				"name": "_mobile",
+				"type": "bytes32"
+			},
+			{
+				"name": "_password",
+				"type": "bytes32"
+			},
+			{
+				"name": "_confirm",
+				"type": "bytes32"
+			},
+			{
+				"name": "_typ",
+				"type": "uint256"
+			},
+			{
+				"name": "_adr",
+				"type": "bytes32"
+			},
+			{
+				"name": "_city",
+				"type": "bytes32"
+			},
+			{
+				"name": "_state",
+				"type": "bytes32"
+			}
+		],
+		"name": "newUser",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "getUser",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "bytes32"
+			},
+			{
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+],
+    "contract_address": "0x4a9be1A5b595b57D4ff406Ea2591cA19599e3Cd1"
 }

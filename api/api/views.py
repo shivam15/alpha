@@ -19,6 +19,10 @@ from datetime import datetime, timedelta
 import time
 from .compile_solidity_utils import w3
 import os
+from .compile_solidity_utils import deploy_n_transact
+from solc import link_code
+import json
+import os
 
 schema_view = get_swagger_view(title='API', url='/api')
 
@@ -51,14 +55,9 @@ def sendEmail(request):
 
 @csrf_exempt
 def blockTesting(request):
-    module_dir = os.path.dirname(__file__)
-    contract_address     = '0x135ba49cabA4d95A5cDcf28bbd2AE139f4716a08'
-    wallet_private_key   = '709b6716ef368366f50d11754028aab724c69ff8e65b7e86c88649cdd510557a'
-    wallet_address       = '0X32E8375EF242B69033838F592685A0CD5DF007FA'
-    filt = w3.eth.filter('latest')
-    file_path = os.path.join(module_dir, 'data.json')
     w3.eth.defaultAccount = w3.eth.accounts[1]
-    with open(file_path, 'r') as f:
+    path = os.path.dirname(os.path.realpath(__file__))
+    with open(os.path.join(path,"data.json"), 'r') as f:
         datastore = json.load(f)
     abi = datastore["abi"]
     contract_address = datastore["contract_address"]
@@ -67,17 +66,44 @@ def blockTesting(request):
     user = w3.eth.contract(
         address=contract_address, abi=abi,
     )
-    print(user)
-    # tx_hash = user.functions.setUser(
-    #     "shivam", "m"
-    # )
-    # tx_hash = tx_hash.transact()
-    # w3.eth.waitForTransactionReceipt(tx_hash)
-    # user_data = user.functions.getUser().call()
-    # print(filt)
-    # print(w3.eth.getFilterChanges(filt.filter_id))
-    # print(w3.eth.accounts)
-    return HttpResponse()
+    body = json.loads(request.body.decode('utf-8'))
+    print(body)
+    tx_hash = user.functions.newUser(
+        10,body['name'].encode('utf-8'), body['username'].encode('utf-8'),
+        body['email'].encode('utf-8'),body['mobile'].encode('utf-8'),
+        body['password'].encode('utf-8'),body['confirm'].encode('utf-8'),
+        int(body['type']),body['address'].encode('utf-8'),
+        body['city'].encode('utf-8'),body['state'].encode('utf-8')
+    )
+    tx_hash = tx_hash.transact()
+    print(tx_hash)
+    # Wait for transaction to be mined...
+    w3.eth.waitForTransactionReceipt(tx_hash)
+    x = w3.eth.getBlock('latest')
+    print(x)
+    return HttpResponse(x)
+
+@csrf_exempt
+def getUserBlock(request):
+    w3.eth.defaultAccount = w3.eth.accounts[1]
+    path = os.path.dirname(os.path.realpath(__file__))
+    with open(os.path.join(path,"data.json"), 'r') as f:
+        datastore = json.load(f)
+    abi = datastore["abi"]
+    contract_address = datastore["contract_address"]
+
+    # Create the contract instance with the newly-deployed address
+    user = w3.eth.contract(
+        address=contract_address, abi=abi,
+    )
+    user_data = user.functions.getUser().call()
+    item = {}
+    item['title'] = [t.decode('utf-8') for t in user_data]
+    print(item)
+    x = w3.eth.getBlock(w3.eth.getBlock('latest').number)
+    print(x)
+    print(str(x.hash))
+    return HttpResponse(x)
 
 class CreateView_user(generics.ListCreateAPIView):
     """This class defines the create behavior of our rest api."""
@@ -190,5 +216,5 @@ class ListView_admin(generics.ListAPIView):
         email = self.request.query_params.get('email', None)
         password = self.request.query_params.get('pwd', None)
         if email is not None:
-            queryset = queryset.filter(email=email).filter(password=password).filter(active=1)
+            queryset = queryset.filter(email=email).filter(password=password)
             return queryset

@@ -5,7 +5,7 @@ class userSerializer(serializers.ModelSerializer):
     class Meta:
         """Meta class to map serializer's fields with the model fields."""
         model = User
-        fields = ('id','username','email','mobile','password','confirm')
+        fields = ('id','name','username','email','mobile','password','confirm','type','address','state','city')
 
 class userDetailsSerializer(serializers.ModelSerializer):
 	User = serializers.SlugRelatedField(slug_field='username', read_only=True)
@@ -29,5 +29,5 @@ class adminSerializer(serializers.ModelSerializer):
     class Meta:
         """Meta class to map serializer's fields with the model fields."""
         model = Admin
-        fields = ('id','first_name','last_name','password','address','email','pincode','mobile_number','active')
+        fields = ('id','username','password','email','mobile','password')
         read_only_fields = ('date_created','date_modified')

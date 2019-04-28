@@ -21,7 +21,13 @@ app = Flask(__name__)
 # api to set new user every api call
 @app.route("/blockchain/user", methods=['POST'])
 def transaction():
-    
+    contract_address, abi = deploy_n_transact(module_dir,['user.sol', 'stringUtils.sol'])
+    with open('data.json', 'w') as outfile:
+        data = {
+        "abi": abi,
+        "contract_address": contract_address
+        }
+    json.dump(data, outfile, indent=4, sort_keys=True)
     w3.eth.defaultAccount = w3.eth.accounts[1]
     with open("data.json", 'r') as f:
         datastore = json.load(f)
