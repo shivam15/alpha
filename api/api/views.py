@@ -23,9 +23,9 @@ from .compile_solidity_utils import deploy_n_transact
 from solc import link_code
 import json
 import os
+from random import randint
 
 schema_view = get_swagger_view(title='API', url='/api')
-
 @csrf_exempt
 def sendSms(request):
     conn = http.client.HTTPConnection("api.msg91.com")
@@ -68,20 +68,29 @@ def blockTesting(request):
     )
     body = json.loads(request.body.decode('utf-8'))
     print(body)
+    i = randint(100, 999)
     tx_hash = user.functions.newUser(
-        10,body['name'].encode('utf-8'), body['username'].encode('utf-8'),
+        i,body['name'].encode('utf-8'), body['username'].encode('utf-8'),
         body['email'].encode('utf-8'),body['mobile'].encode('utf-8'),
         body['password'].encode('utf-8'),body['confirm'].encode('utf-8'),
         int(body['type']),body['address'].encode('utf-8'),
         body['city'].encode('utf-8'),body['state'].encode('utf-8')
     )
     tx_hash = tx_hash.transact()
-    print(tx_hash)
+    #print(tx_hash)
     # Wait for transaction to be mined...
     w3.eth.waitForTransactionReceipt(tx_hash)
     x = w3.eth.getBlock('latest')
-    print(x)
-    return HttpResponse(x)
+    #print(x)
+    user_data = user.functions.getUser(i).call()
+    item = {}
+    item['id'] = user_data[0]
+    item['username'] = user_data[1].decode('utf-8')
+    item['name'] = user_data[2].decode('utf-8')
+    print(item)
+    #item['title'] = [str(t).decode('utf-8') for t in user_data]
+    #print(item)
+    return HttpResponse(json.dumps(item))
 
 @csrf_exempt
 def getUserBlock(request):

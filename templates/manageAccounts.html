@@ -34,23 +34,16 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
-                      <td>$320,800</td>
-                    </tr>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                      <td>Edinburgh</td>
-                      <td>Tokyo</td>
-                      <td>63</td>
-                      <td>2011/07/25</td>
-                      <td>$170,750</td>
+                    <tr ng-repeat="x in users">
+                      <td>{{x.name}}</td>
+                      <td ng-if="x.type === 1">Farmer</td>
+                      <td ng-if="x.type === 2">Veterinarians</td>
+                      <td ng-if="x.type === 3">Dairy</td>
+                      <td>{{x.mobile}}</td>
+                      <td>{{x.city}}</td>
+                      <td>{{x.state}}</td>
+                      <td><button class="btn btn-sm btn-success" type="button">Edit/View</button></td>
+                      <td><button class="btn btn-sm btn-danger" type="button">Delete</button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -114,7 +107,7 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <button ng-click="addUser()" type="button" class="btn btn-success">Submit</a>
+          <button ng-click="addUser()" type="button" class="btn btn-success">Submit</button>
         </div>
       </div>
     </div>

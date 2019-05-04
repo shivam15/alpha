@@ -7,16 +7,12 @@ angular.module('blockchain').controller("manageAccountController", function($sco
 			$('.aboutLink').parent().addClass("active");
 			
 		});
-		// $scope.showSubmit = true;
-		// $scope.dis = {};
-		// $scope.list = $http.get('http://localhost:8000/get_user');	
-		// $scope.list.then(function(response){
-		// 	$scope.products = response.data;
-		// });
-		// $scope.list1 = $http.get('http://localhost:8000/getVendorDiscount?vendor_id=' + $cookies.userId);	
-		// $scope.list1.then(function(response){
-		// 	$scope.discounts = response.data;
-		// });
+		$scope.showSubmit = true;
+		$scope.dis = {};
+		$scope.list = $http.get('http://localhost:8000/user/');	
+		$scope.list.then(function(response){
+			$scope.users = response.data;
+		});
 	};
 	$scope.load();
 	$scope.addUser = function() 
@@ -29,8 +25,13 @@ angular.module('blockchain').controller("manageAccountController", function($sco
 		$scope.list = $http.post('http://localhost:8000/blockTesting/',$scope.u);	
 		$scope.list.then(function(response){
 			$scope.response = response.data;
-			$scope.hideloading();
-			$scope.showSubmit = true;
+			console.log($scope.response);
+		// 	$scope.showSubmit = true;
+		// 	$scope.list1 = $http.post('http://localhost:8000/user/',$scope.u);	
+		// 	$scope.list1.then(function(response){
+		// 	$scope.response = response.data;
+		// 	$scope.showSubmit = true;
+		// });
 		});
 	}
 
